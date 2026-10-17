@@ -1,0 +1,7 @@
+{
+  "name": "bake-hono-example",
+  "private": true,
+  "dependencies": {
+    "hono": "^4.7.2"
+  }
+}
