@@ -1,4 +1,4 @@
-import type { GetStaticPaths, GetStaticProps } from "bun:bake";
+import type { GetStaticPaths, GetStaticProps } from "@bun/routes";
 import { getPost, listPosts, type Post } from "../../posts.ts";
 
 // Build time: which posts to render ahead of time.

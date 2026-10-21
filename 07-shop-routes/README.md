@@ -2,6 +2,8 @@
 
 **Proposal, not decided.** Compare with `08-shop-server-first`. Nothing here runs.
 
+This route shape belongs to `@bun/routes`. Bake sees only entries and the export names to drop.
+
 ## The rule
 
 - `server` runs only on the server. What it returns is the props.
@@ -12,6 +14,10 @@
 - A file with no default export is an API route.
 
 No directives. Anything only `server` uses never reaches the browser.
+
+`notFound()` from `@bun/routes` ends the route with the 404 page. `server` may
+also return a plain `Response`, such as `new Response(null, { status: 404 })`,
+which is sent as is.
 
 ## Files
 

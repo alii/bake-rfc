@@ -1,4 +1,4 @@
-import { notFound } from "bun:bake";
+import { notFound } from "@bun/routes";
 import { CartBadge } from "../../components/cart-badge.tsx";
 import { getProduct, type Product } from "../../shop.ts";
 

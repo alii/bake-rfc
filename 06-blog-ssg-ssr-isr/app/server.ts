@@ -1,4 +1,4 @@
-import { revalidate } from "bun:bake";
+import { revalidate } from "@bun/routes";
 
 export default {
   routes: {

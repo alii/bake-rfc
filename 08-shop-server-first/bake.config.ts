@@ -1,7 +1,8 @@
 import { defineConfig } from "bun:bake";
-import react from "@bun/plugin-react";
+import routes from "@bun/routes";
+import { reactServer } from "@bun/plugin-react";
 
 // Build time only. `bun bake build` never bundles this file into dist/server.js.
 export default defineConfig({
-  plugins: [react()],
+  framework: routes({ renderer: reactServer() }),
 });

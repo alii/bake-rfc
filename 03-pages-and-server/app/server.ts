@@ -2,7 +2,7 @@
 // (`export default { fetch }`), plus optional `routes` and `websocket`.
 // You never call Bun.serve: `bun bake` and `dist/server.js` start the server.
 export default {
-  // Matched natively, next to Bake's page routes.
+  // Matched natively, next to the framework's routes.
   routes: {
     "/api/hello": () => Response.json({ hi: 1 }),
     "/health": new Response("ok"),

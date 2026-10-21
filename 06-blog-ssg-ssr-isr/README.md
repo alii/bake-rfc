@@ -4,11 +4,11 @@ Each page picks how it is rendered by which functions it exports. The names
 are copied from the Next.js pages router for now, and will be redesigned later.
 
 ```
-bake.config.ts             # plugins: [react()]
+bake.config.ts             # framework: routes({ renderer: react() })
 app/
   posts.ts                 # stand-in for a CMS
   server.ts                # POST /api/revalidate/:id (on-demand ISR)
-  pages/
+  routes/
     index.tsx              -> /             static
     blog/[id].tsx          -> /blog/:id     static + paths + ISR
     dashboard.tsx          -> /dashboard    per request
@@ -41,12 +41,10 @@ at once.
 - `getServerSideProps` gets a web `Request`, not Node's `req`/`res`.
 - `fallback: true` (render a loading state first) is left out for now. Only
   `false` and `"blocking"`.
-- `res.revalidate(path)` is `revalidate(path)` from `bun:bake`, so any code can
+- `res.revalidate(path)` is `revalidate(path)` from `@bun/routes`, so any code can
   call it, not just API routes.
 
-## What Bake core needs for this
+## What this needs
 
-- A production server (`dist/server.js`), which `bun bake build` doesn't make
-  today.
-- A page cache in that server, with stale-while-revalidate.
-- `revalidate(path)` in `bun:bake`.
+- A production server from `bun bake build`.
+- A page cache and `revalidate(path)` in `@bun/routes`, not in Bake.

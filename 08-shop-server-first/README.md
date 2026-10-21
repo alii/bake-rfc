@@ -2,12 +2,15 @@
 
 **Proposal, not decided.** Compare with `07-shop-routes`. Nothing here runs.
 
+This route shape belongs to `@bun/routes`. Bake sees only entries and the export names to drop.
+
 ## The rule
 
 - A component runs only on the server, and can be `async`.
 - A component that uses browser features (`useState`, `onClick`) is live: it also
   runs in the browser. Only its props cross.
-- There are no directives. The bundler works out the boundary.
+- There are no directives. A plugin in the framework works out the boundary, and the
+  bundler builds both sides in one pass.
 
 ## Files
 
