@@ -6,15 +6,13 @@
     "jsx": "react-jsx",
     "strict": true,
     "noEmit": true,
-    "types": [
-      "bun"
-    ],
+    "types": ["bun"],
     "allowImportingTsExtensions": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "default-framework/app": ["./frameworks/default/app.ts"],
+      "rsc-sketch/app": ["./advanced/rsc/app.ts"]
+    }
   },
-  "include": [
-    "types/*.d.ts",
-    "*/**/*.ts",
-    "*/**/*.tsx"
-  ]
+  "include": ["types/*.d.ts", "apps/**/*.ts", "apps/**/*.tsx", "frameworks/**/*.ts", "frameworks/**/*.tsx", "advanced/**/*.ts", "advanced/**/*.tsx"]
 }

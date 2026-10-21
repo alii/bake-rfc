@@ -1,0 +1,6 @@
+{
+  "name": "tiny-framework",
+  "private": true,
+  "exports": "./index.ts",
+  "dependencies": { "react": "*", "react-dom": "*" }
+}

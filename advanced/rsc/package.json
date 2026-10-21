@@ -1,0 +1,10 @@
+{
+  "name": "rsc-sketch",
+  "private": true,
+  "exports": {
+    ".": "./index.ts",
+    "./app": "./app.ts",
+    "./stub": "./stub.ts"
+  },
+  "dependencies": { "react": "*", "react-dom": "*" }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "default-framework",
+  "private": true,
+  "exports": {
+    ".": "./index.ts",
+    "./app": "./app.ts"
+  },
+  "dependencies": { "react": "*", "react-dom": "*" }
+}
