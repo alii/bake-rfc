@@ -9,7 +9,7 @@ export default {
         if (req.headers.get("authorization") !== `Bearer ${process.env.REVALIDATE_TOKEN}`) {
           return new Response("Unauthorized", { status: 401 });
         }
-        await revalidate(`/blog/${req.params.id}`);
+        revalidate(`/blog/${req.params.id}`);
         return Response.json({ revalidated: true });
       },
     },

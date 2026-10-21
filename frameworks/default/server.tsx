@@ -3,7 +3,7 @@
 import { assets, files, load, saved, type Assets, type Prerender } from "bun:bake";
 import type { ReactNode } from "react";
 import { renderToReadableStream } from "react-dom/server";
-import { keep, kept, setRenderer } from "./cache.ts";
+import { isOld, keep, kept } from "./cache.ts";
 import { fill, isLayout, isRoute, layoutsOf, match, pathnameOf } from "./routes.ts";
 
 const BACKEND = "app/server.ts";
@@ -86,15 +86,17 @@ function Document({ assets, page, children }: { assets: Assets; page: unknown; c
   );
 }
 
-// Used by `revalidate(path)` and when a kept page goes stale.
-setRenderer(async pathname => {
-  const hit = findRoute(pathname);
-  if (!hit) return null;
-  const res = await renderRoute(hit.file, hit.params, new Request(new URL(pathname, "http://revalidate")));
-  return res.ok ? res.text() : null;
-});
+type Hit = { file: string; params: Record<string, string> };
 
-async function pageOrCache(hit: { file: string; params: Record<string, string> }, request: Request, url: string) {
+async function renderAndKeep(hit: Hit, request: Request, url: string, seconds: number) {
+  const res = await renderRoute(hit.file, hit.params, request);
+  if (!res.ok) return res;
+  const body = await res.text();
+  keep(url, body, seconds);
+  return html(body);
+}
+
+async function pageOrCache(hit: Hit, request: Request, url: string) {
   const dev = process.env.NODE_ENV !== "production";
   if (dev || request.method !== "GET" || hit.file.endsWith(".html")) return renderRoute(hit.file, hit.params, request);
 
@@ -102,16 +104,13 @@ async function pageOrCache(hit: { file: string; params: Record<string, string> }
   if (!seconds) return renderRoute(hit.file, hit.params, request);
 
   // Memory first, then the copy the build saved, then render on this request.
-  const page = kept(url) ?? (await saved(url));
-  if (page != null) {
-    if (kept(url) == null) keep(url, page, seconds);
-    return html(page);
-  }
-  const res = await renderRoute(hit.file, hit.params, request);
-  if (!res.ok) return res;
-  const body = await res.text();
-  keep(url, body, seconds);
-  return html(body);
+  const entry = kept(url);
+  const page = entry ? entry.html : await saved(url);
+  if (page == null) return renderAndKeep(hit, request, url, seconds);
+
+  if (!entry) keep(url, page, seconds);
+  else if (isOld(entry)) void renderAndKeep(hit, request, url, seconds).catch(() => {});
+  return html(page);
 }
 
 // `Bun.serve` wants `websocket` at start, and the backend can change. So forward.
