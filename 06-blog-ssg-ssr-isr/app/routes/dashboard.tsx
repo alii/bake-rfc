@@ -1,4 +1,4 @@
-import type { GetServerSideProps } from "bun:bake";
+import type { GetServerSideProps } from "@bun/routes";
 
 // Rendered on every request, because the HTML depends on who is asking.
 export const getServerSideProps: GetServerSideProps<{ user: string }> = async ({ request }) => {

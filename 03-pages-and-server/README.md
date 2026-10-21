@@ -1,18 +1,18 @@
-# 03: Pages plus your own backend
+# 03: Routes plus your own backend
 
-Add `app/server.ts` to handle what pages don't: an API, webhooks, a custom 404.
+Add `app/server.ts` to handle what routes in `app/routes/` don't: an API, webhooks, a custom 404.
 
 ```
-bake.config.ts       # plugins: [react()]
+bake.config.ts       # framework: routes({ renderer: react() })
 app/
   server.ts          # your backend: routes, fetch, websocket
-  pages/
+  routes/
     index.tsx        -> /
 ```
 
 ## What `bun bake` and `dist/server.js` do
 
-They start the server with Bake's page routes plus your `routes`, then your
+They start the server with the framework's routes plus your `routes`, then your
 `fetch` for everything else. You never call `Bun.serve`.
 
 ## How the production server answers
@@ -28,5 +28,5 @@ They start the server with Bake's page routes plus your `routes`, then your
 
 ## Rule
 
-A page and one of your `routes` can't own the same URL. Bake reports the clash
-as an error instead of picking one.
+A file in `app/routes/` and one of your `routes` can't own the same URL.
+`@bun/routes` reports the clash as an error instead of picking one.

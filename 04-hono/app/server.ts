@@ -7,5 +7,5 @@ hono.post("/api/echo", async c => c.json(await c.req.json()));
 hono.notFound(c => c.text("Not found", 404));
 
 // A Hono app has `.fetch`, so it is a valid default export.
-// Pages are not mounted here: Bake serves them natively before Hono runs.
+// Routes in app/routes/ are not mounted here: the framework answers them before Hono runs.
 export default hono;

@@ -1,14 +1,14 @@
-# 04: Pages plus a Hono backend
+# 04: Routes plus a Hono backend
 
 The same as 03, with Hono as the backend. Hono only sees requests that are not
-pages or assets, so pages keep the native fast path.
+routes or assets, so prerendered pages are still served natively.
 
 ```
-bake.config.ts       # plugins: [react()]
+bake.config.ts       # framework: routes({ renderer: react() })
 package.json         # hono
 app/
   server.ts          # export default hono
-  pages/
+  routes/
     index.tsx        -> /
 ```
 
@@ -21,7 +21,7 @@ app/
 | `/api/hello`, `/api/echo` | Hono. |
 | anything else | Hono's `notFound`. |
 
-## Checked
+## Why Hono fits
 
-Hono 4.7.2: a Hono app has `.fetch(request)`, which returns a `Response`, so
-it is a valid default export.
+A Hono app has `.fetch(request)`, which returns a `Response`, so it should be a
+valid default export. This has not been run.

@@ -1,10 +1,10 @@
 # 01: HTML pages, no config
 
-The smallest app: HTML files in `app/pages/`. No `bake.config.ts`, no server.
+The smallest app: HTML files in `app/routes/`. No `bake.config.ts`, no server.
 
 ```
 app/
-  pages/
+  routes/
     index.html   -> /
     about.html   -> /about
   main.ts
@@ -19,13 +19,14 @@ app/
 | `bun bake build`       | Writes `dist/`.             |
 | `bun ./dist/server.js` | Serves the build.           |
 
-`bun ./app/pages/index.html` still works too: it serves that one page with no config, as it does today.
+`bun ./app/routes/index.html` still works too: it serves that one page with no config, as it does today.
 
 ## What `bun bake build` writes
 
 ```
 dist/
-  server.js            # starts Bun.serve with the route table below
+  server.js            # the handler; `bun ./dist/server.js` serves it
+  bake.json            # the built files of each entry
   client/
     index.html
     about.html
@@ -39,6 +40,6 @@ dist/
 | --------------------------------------- | ---------------------------------------------- |
 | `/`, `/about`                           | Static route: the built HTML, served natively. |
 | `/main-[hash].js`, `/styles-[hash].css` | Static route, served natively.                 |
-| anything else                           | Bake's built-in 404.                           |
+| anything else                           | The framework's 404.                           |
 
 No JavaScript runs per request.

@@ -1,4 +1,4 @@
-# 06: A static site with Tailwind
+# 05: A static site with Tailwind
 
 HTML pages plus one plugin. This replaces `[serve.static] plugins` in
 `bunfig.toml`, which can only name a plugin, not pass it options.
@@ -7,7 +7,7 @@ HTML pages plus one plugin. This replaces `[serve.static] plugins` in
 bake.config.ts       # plugins: [tailwind()]
 app/
   app.css            # @import "tailwindcss"
-  pages/
+  routes/
     index.html       -> /
     docs/
       install.html   -> /docs/install
