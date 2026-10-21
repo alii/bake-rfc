@@ -49,6 +49,9 @@ declare module "bun:bake" {
 
   /** Render this URL again now and replace the cached page (on-demand ISR). */
   export function revalidate(path: string): Promise<void>;
+
+  /** Proposal: ends a route with the 404 page. */
+  export function notFound(): never;
 }
 
 /** Stand-ins for plugins that would come from npm. */

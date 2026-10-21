@@ -89,6 +89,19 @@ separately from your `websocket` handler, as the dev server already does today
 | `05-static-site-tailwind` | HTML pages plus a Tailwind plugin, hostable anywhere. |
 | `06-blog-ssg-ssr-isr` | Static, per-request and ISR pages, plus on-demand `revalidate`. |
 
+## Proposal: routes
+
+**Not decided.** The cases above show today's mock. These two show the same shop
+in the two candidate designs for the next version, with files in `app/routes/`:
+
+| Folder | Shows |
+| --- | --- |
+| `07-shop-routes` | One route shape: `server` and `default`, with no directives. A route is interactive or ships no script. |
+| `08-shop-server-first` | Server by default with no directives. The bundler finds the live parts. |
+
+Both keep the data in a plain server-only file, and both use web standards for API
+routes. All names are placeholders.
+
 ## Open questions
 
 - **The page function names** (`getStaticProps` and so on) are copied from
