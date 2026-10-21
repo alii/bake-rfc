@@ -20,15 +20,18 @@ has been run. Steps that today's Bun cannot do are listed in
    `app/pages/index.tsx`.
 5. `load(file)` makes Bake build the server copy, and returns the module.
 6. `assets(file)` makes Bake build the browser copy, with `client.tsx`. It returns
-   script and CSS URLs. One script holds the hot reload runtime.
+   script and CSS URLs: the shared client code and the page's own code. One script
+   holds the hot reload runtime.
 7. The framework renders the page to HTML. It adds the scripts, and a JSON block that
    names the file and its props.
 8. It returns a `Response`. Bake sends it.
 
 In the browser:
 
-9. The scripts load, and `client.tsx` runs.
-10. It reads the JSON block, calls `load(file)`, and calls `hydrateRoot`.
+9. The browser fetches all the scripts at the same time. The page's script registers
+   the page, and does not run it yet.
+10. `client.tsx` reads the JSON block and calls `load(file)`. The page is on this HTML,
+    so there is no extra request. Then it calls `hydrateRoot`.
 11. The button works.
 
 ## One edit

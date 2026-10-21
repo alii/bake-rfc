@@ -98,8 +98,11 @@ import { load } from "bun:bake/client";
 await load(file);         // the same file, in the browser
 ```
 
-Put `assets(file).js` in your HTML and you get hydration and hot reload. In dev, those
-scripts include the hot reload runtime. Bake turns on React Fast Refresh when browser
+Put `assets(file).js` in your HTML and you get hydration and hot reload. It lists the
+shared client code and the page's own code, so the browser fetches them at the same
+time. The shared part is built once, and cached across the whole site. `load(file)`
+waits for a file on the page, with no extra request. In dev, those scripts include the
+hot reload runtime. Bake turns on React Fast Refresh when browser
 code imports React.
 
 `frameworks/tiny` is this, whole: three files and a `package.json`.

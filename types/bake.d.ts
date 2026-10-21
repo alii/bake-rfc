@@ -55,7 +55,10 @@ declare module "bun:bake" {
   /** The server copy of a file from `files()`. Call it per request, so that edits apply. */
   export function load(file: string): Promise<any>;
 
-  /** What a page must link. Includes `client` if the files named have a browser copy. */
+  /**
+   * What a page must link, so the browser fetches it all at the same time. Includes
+   * `client` if the files named have a browser copy.
+   */
   export function assets(file: string | string[]): Promise<Assets>;
 
   export interface Assets {
@@ -93,6 +96,7 @@ declare module "bun" {
 
 declare module "bun:bake/client" {
   /** The browser copy of a file. Takes the same name as on the server. */
+  /** A file listed by `assets` on this page needs no extra request. Others are fetched. */
   export function load(file: string): Promise<any>;
 }
 
